@@ -1,0 +1,46 @@
+name: Build Docker Image
+
+on:
+  push:
+    branches:
+      - develop
+  workflow_dispatch:
+    inputs:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  docker:
+    name: Docker Build and Push Image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Image digest
+        run: echo ${{ steps.buildandpush.outputs.digest }}
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+        with:
+          image: tonistiigi/binfmt:latest
+          platforms: amd64,arm64
+      - name: Set up docker buildx
+        uses: docker/setup-buildx-action@v1
+        with:
+          install: true
+      - name: Log in to the container registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and push docker image
+        id: buildandpush
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ghcr.io/apodini/swift:nightly-focal,ghcr.io/apodini/swift:nightly
+      - name: Image digest
+        run: echo ${{ steps.buildandpush.outputs.digest }}

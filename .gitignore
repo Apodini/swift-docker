@@ -1,0 +1,5 @@
+# Apodini .gitignore File
+
+# Other files
+.DS_Store
+.env
