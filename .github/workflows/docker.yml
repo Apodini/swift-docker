@@ -16,13 +16,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: Image digest
-        run: echo ${{ steps.buildandpush.outputs.digest }}
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
         with:
-          image: tonistiigi/binfmt:latest
-          platforms: amd64,arm64
+          platforms: linux/amd64,linux/arm64
       - name: Set up docker buildx
         uses: docker/setup-buildx-action@v1
         with:
