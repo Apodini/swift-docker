@@ -11,6 +11,8 @@ FROM ghcr.io/apodini/swift:nightly
 ```
 The docker images is based on `ubuntu:20.04` and offeres the following architectures: `linux/arm64` & `linux/amd64` and therefore can be used on x86_64 and aarch64 architectures.
 
+You can check out the image on the [GitHub Packages page](https://github.com/Apodini/swift-docker/pkgs/container/swift)
+
 ## Contributing
 Contributions to this project are welcome. Please make sure to read the [contribution guidelines](https://github.com/Apodini/.github/blob/main/CONTRIBUTING.md) and the [contributor covenant code of conduct](https://github.com/Apodini/.github/blob/main/CODE_OF_CONDUCT.md) first.
 
